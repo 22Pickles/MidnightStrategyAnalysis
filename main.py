@@ -5,7 +5,7 @@ import numpy as np
 def main():
     possible_scores = [0,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
     o = [[],[],[],[],[]]
-    trials = 100000
+    trials = 10000
     tests = 5
     for i in range(trials-1):
         o[0].append(game(str1))
@@ -18,16 +18,21 @@ def main():
     d = [[o[a].count(i)/trials for i in possible_scores] for a in range(tests)]
     mean = [np.mean(o[a]) for a in range(tests)]
     median = [np.median(o[a]) for a in range(tests)]
+    q1 = [np.quantile(o[a], 0.25) for a in range(tests)]
+    q3 = [np.quantile(o[a], 0.75) for a in range(tests)]
     
     fig, axes = plt.subplots(tests,1)
 
-    [axes[a].bar(c, d[a]) for a in range(tests)]
+    [axes[a].bar(c, d[a],color='lightpink') for a in range(tests)]
 
-    [axes[a].axvline(mean[a]) for a in range(tests)]
+    [axes[a].axvline(mean[a],color='r') for a in range(tests)]
+    [axes[a].axvline(q1[a],color='b') for a in range(tests)]
+    [axes[a].axvline(q3[a],color='b') for a in range(tests)]
+    
 
     plt.tight_layout()
 
-    plt.savefig('Tests')
+    plt.savefig('tests')
     plt.close()
 
 def game(strategy):
