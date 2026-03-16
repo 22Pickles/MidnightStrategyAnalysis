@@ -22,17 +22,25 @@ def main():
     q3 = [np.quantile(o[a], 0.75) for a in range(tests)]
     
     fig, axes = plt.subplots(tests,1)
+    plt.rcParams["font.size"] = 6
+    p = []
 
-    [axes[a].bar(c, d[a],color='lightpink') for a in range(tests)]
+    [p.append(axes[a].bar(c, d[a])) for a in range(tests)]
 
     [axes[a].axvline(mean[a],color='r') for a in range(tests)]
     [axes[a].axvline(q1[a],color='b') for a in range(tests)]
     [axes[a].axvline(q3[a],color='b') for a in range(tests)]
+
+    [axes[a].set_title(f"Strategy {str(a+1)}") for a in range(tests)]
+
+    [axes[a].bar_label(p[a], fmt=lambda a: f'{a*100:.1f}') for a in range(tests)]
+
+    
     
 
     plt.tight_layout()
 
-    plt.savefig('tests')
+    plt.savefig('tests', dpi=900)
     plt.close()
 
 def game(strategy):
