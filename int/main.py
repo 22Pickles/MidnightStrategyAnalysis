@@ -4,10 +4,6 @@ from typing import List
 
 
 class Main:
-    
-    def main(self) -> None:
-        pass
-    
     def score(self, pocket: List[int]) -> int:
         if (1 in pocket) and (4 in pocket):
             r: List[int] = [1, 4]
@@ -28,10 +24,8 @@ class Main:
 
         while game_running:
             a: List[int] = [random.randint(1,6) for _ in range(dice)]
-            print(f"Roll: {a}\nPocket: {b}\nScore: {self.score(b)}\n")
-            n = Strategies.str1(a,b)
-            print(n)
-            for i in [int(x) for x in n]:
+            print(f"Roll: {a}\nPocket: {b}\nScore: {self.score(b)}")
+            for i in [int(x) for x in [int(i) for i in input("Which do you want to take?\n>>>").split()]]:
                 a.remove(i)
                 b.append(i)
             dice = len(a)
@@ -40,8 +34,15 @@ class Main:
                 print(f"Game Over\nPocket: {b}\nScore: {self.score(b)}")
                 game_running = False
                 return self.score(b)
-    
+        return 1
 
+    def main(self) -> None:
+        self.gameloop()
+
+
+if __name__ == "__main__":
+    o = Main()
+    o.main()
 
 
     
